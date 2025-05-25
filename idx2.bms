@@ -1,0 +1,20 @@
+endian little
+idstring "IDX2\x01\x02"
+
+// Header
+get FILE_COUNT short
+get ARCHIVE_SIZE long
+get UNKNOWN_0 long
+getdstring DEVELOPER 16
+
+// File Index Start
+goto 0x420
+
+for i = 0 < FILE_COUNT
+	get DATA_OFFSET long
+	get FILE_LENGTH long
+	get UNKNOWN_1 long
+	get UNKNOWN_2 long
+	getdstring FILE_NAME 0x20
+	log FILE_NAME DATA_OFFSET FILE_LENGTH
+next i
